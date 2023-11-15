@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Resources:
+  all-methods-function:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Events:
+        userregistrationapi:
+          Type: HttpApi
+          Properties:
+            ApiId:
+              Ref: all-methods-function
+            Path: /all-methods-function
+            Method: ANY
+  all-methods-function:
+    Type: 'AWS::Serverless::HttpApi'
+    Properties:
+      StageName: 'test'
+      DefinitionBody:
+        openapi: '3.0.1'
+        info:
+          title: 'My API'
+  
